@@ -1,0 +1,102 @@
+.menu{
+    display:flex;
+    justify-content:center;
+}
+
+.boton{
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 30px;
+    padding: 50px;
+    margin: 100px 70px;
+    font-size: 2em;
+    border: 3px solid white ;
+}
+
+.boton:hover{
+    cursor: pointer;
+    border: 3px solid black ;
+}
+
+.contenido{
+    display: flex;
+    justify-content: center;
+}
+
+.contenidoCrear{
+    display: flex;
+    justify-content:right;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+.campoForm{
+    margin-top: 20px;
+    float: right;
+    text-align: right;
+}
+
+.submit{
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 30px;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 1.4em;
+}
+
+.submit:hover{
+    cursor: pointer;
+    border: 3px solid black ;
+}
+
+.submitContainer{
+    text-align: center ;
+}
+
+label{
+    color:cornflowerblue;
+    font-size: 1.2em;
+    margin-right: 15px;
+}
+
+.inputForm{
+    height: 25px;
+    border: 2px solid cornflowerblue;
+    border-radius: 10px;
+}
+
+textarea{
+    border: 2px solid cornflowerblue;
+    border-radius: 10px;
+}
+
+table{
+    color:cornflowerblue;
+    font-size: 1.2em;
+    border: 1px solid cornflowerblue;
+    border-collapse: collapse;
+}
+
+th{
+    border: 1px solid cornflowerblue;
+    padding: 10px 50px;
+    border-collapse: collapse;
+}
+
+td{
+    text-align: center;
+}
+
+td button{
+    background-color: cornflowerblue;
+    color: white;
+    border: 1px solid cornflowerblue;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.mensajeError{
+    color: red;
+}

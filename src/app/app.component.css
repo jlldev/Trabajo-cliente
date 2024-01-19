@@ -1,0 +1,36 @@
+.cabecera{
+    height: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    height: 90%;
+}
+
+.footer{
+    background-color: cornflowerblue;
+    color: white;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    height: 18%;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+ul{
+    list-style: none;
+    font-size: 1.4em;
+    text-align: center;
+}
+
+li{
+    padding: 10px 0;
+}

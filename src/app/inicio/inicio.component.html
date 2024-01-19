@@ -1,0 +1,148 @@
+<div class="menu" *ngIf="vistaInicial">
+    <button class="boton" (click)="crearSeleccionado()">Crear nueva cita</button>
+    <button class="boton" (click)="modificarSeleccionado()">Modificar cita</button>
+</div>
+  
+<div class="contenido" *ngIf="vistaDetalle">
+    <div class="contenidoCrear" *ngIf="vistaCrear">
+        
+        <form [formGroup]="formulario" (ngSubmit)="crearCita($event)">
+            <div class="campoForm" id="fechaHora">
+                <label for="fechaCita">* Fecha y hora: </label>
+                <input formControlName="fechaCita" class="inputForm" type="datetime-local" name="fechaCitaM" id="fechaCitaM" min="fechaHoy" required>
+                <div *ngIf="mostrarAdvertencia('fechaCita')" class="mensajeError">Campo obligatorio</div>
+            </div>
+            <div class="campoForm" id="nombre">
+                <label for="nombre">* Nombre: </label>
+                <input formControlName="nombre" class="inputForm" type="text" name="nombreM" id="nombreM" required>
+                <div *ngIf="mostrarAdvertencia('nombre')" class="mensajeError">Campo obligatorio</div>
+            </div>
+            <div class="campoForm" id="apellidos">
+                <label for="apellidos">* Apellidos: </label>
+                <input formControlName="apellidos" class="inputForm" type="text" name="apellidosM" id="apellidosM" required>
+                <div *ngIf="mostrarAdvertencia('apellidos')" class="mensajeError">Campo obligatorio</div>
+            </div>
+            <div class="campoForm" id="dni">
+                <label for="dni">* DNI: </label>
+                <input formControlName="dni" class="inputForm" type="text" name="dniM" id="dniM" required>
+                <div *ngIf="mostrarAdvertencia('dni')" class="mensajeError">Campo obligatorio. Formato '00000000X'</div>
+            </div>
+            <div class="campoForm" id="telefono">
+                <label for="telefono">* Teléfono: </label>
+                <input formControlName="telefono" class="inputForm" type="number" name="telefonoM" id="telefonoM" minlength="9" maxlength="9" required>
+                <div *ngIf="mostrarAdvertencia('telefono')" class="mensajeError">Campo obligatorio. Formato '666666666'</div>
+            </div>
+            <div class="campoForm" id="fechaNacimiento">
+                <label for="fechaNacimiento">* Fecha de nacimiento: </label>
+                <input formControlName="fechaNacimiento" class="inputForm" type="date" name="fechaNacimientoM" id="fechaNacimientoM" min="fechaHoy" required>
+                <div *ngIf="mostrarAdvertencia('fechaNacimiento')" class="mensajeError">Campo obligatorio</div>
+            </div>
+            <div class="campoForm" id="observaciones">
+                <label for="observaciones">Observaciones: </label>
+                <textarea name="observacionesM" id="observacionesM" formControlName="fechaNacimiento"></textarea>
+            </div>
+            <div class="submitContainer">
+                <input class="submit" id="submitCrear" type="submit" value="Crear cita" [disabled]="formulario.invalid">
+            </div>
+        </form>
+    </div>
+    <div class="contenidoModificar" *ngIf="vistaModificar">
+        <div class="tabla">
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Fecha cita</th>
+                    <th>Teléfono</th>
+                    <th>Modificar</th>
+                    <th>Borrar</th>
+                </tr>
+                <tr  *ngIf="citas.length == 0">
+                    <td>Dato vacío</td>
+                    <td>Dato vacío</td>
+                    <td>Dato vacío</td>
+                    <td>Dato vacío</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+                <tr  *ngFor="let cita of citas">
+                    <td>{{cita.nombre}}</td>
+                    <td>{{cita.apellidos}}</td>
+                    <td>{{cita.fechaCita}}</td>
+                    <td>{{cita.telefono}}</td>
+                    <td><button name="{{cita.identificador}}" (click)="modCita($event)">Modificar</button></td>
+                    <td><button name="{{cita.identificador}}" (click)="borrarCita($event)">Borrar</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="citaModificar" *ngIf="vistaCitaModificar">
+        <form>
+            <div class="campoForm" id="fechaHora">
+                <label for="fechaCita">* Fecha y hora: </label>
+                <input class="inputForm" type="datetime-local" name="fechaCita" [(ngModel)]="fechaCita" required>
+            </div>
+            <div class="campoForm" id="nombre">
+                <label for="nombre">* Nombre: </label>
+                <input class="inputForm" type="text" name="nombre" [(ngModel)]="nombre" required>
+            </div>
+            <div class="campoForm" id="apellidos">
+                <label for="apellidos">* Apellidos: </label>
+                <input class="inputForm" type="text" name="apellidos" [(ngModel)]="apellidos" required>
+            </div>
+            <div class="campoForm" id="dni">
+                <label for="dni">* DNI: </label>
+                <input class="inputForm" type="text" name="dni" [(ngModel)]="dni">
+            </div>
+            <div class="campoForm" id="telefono">
+                <label for="telefono">* Teléfono: </label>
+                <input class="inputForm" type="number" name="telefono" [(ngModel)]="telefono" minlength="9" maxlength="9">
+            </div>
+            <div class="campoForm" id="fechaNacimiento">
+                <label for="fechaNacimiento">* Fecha de nacimiento: </label>
+                <input class="inputForm" type="date" name="fechaNacimiento" [(ngModel)]="fechaNacimiento">
+            </div>
+            <div class="campoForm" id="observaciones">
+                <label for="observaciones">Observaciones: </label>
+                <textarea name="observaciones" [(ngModel)]="observaciones"></textarea>
+            </div>
+            <div class="submitContainer">
+                <input class="submit" id="submitCrear" type="submit" value="Modificar cita" (click)="citaModificada()">
+            </div>
+        </form>
+        <!-- <form [formGroup]="formularioMod" (ngSubmit)="citaModificada()">
+            <div class="campoForm" id="fechaHora">
+                <label for="fechaCita">* Fecha y hora: </label>
+                <input formControlName="fechaCita" class="inputForm" type="datetime-local" name="fechaCita" required>
+            </div>
+            <div class="campoForm" id="nombre">
+                <label for="nombre">* Nombre: </label>
+                <input formControlName="nombre" class="inputForm" type="text" name="nombre" required>
+            </div>
+            <div class="campoForm" id="apellidos">
+                <label for="apellidos">* Apellidos: </label>
+                <input formControlName="apellidos" class="inputForm" type="text" name="apellidos" required>
+            </div>
+            <div class="campoForm" id="dni">
+                <label for="dni">* DNI: </label>
+                <input formControlName="dni" class="inputForm" type="text" name="dni" required>
+            </div>
+            <div class="campoForm" id="telefono">
+                <label for="telefono">* Teléfono: </label>
+                <input  class="inputForm" type="number" name="telefono" minlength="9" maxlength="9" required formControlName="telefono">
+            </div>
+            <div class="campoForm" id="fechaNacimiento">
+                <label for="fechaNacimiento">* Fecha de nacimiento: </label>
+                <input formControlName="fechaNacimiento" class="inputForm" type="date" name="fechaNacimiento" required>
+            </div>
+            <div class="campoForm" id="observaciones">
+                <label for="observaciones">Observaciones: </label>
+                <textarea name="observaciones" formControlName="observaciones"></textarea>
+            </div>
+            <div class="submitContainer">
+                <input class="submit" id="submitModificar" type="submit" value="Modificar cita" [disabled]="formularioMod.invalid">
+            </div>
+        </form> -->
+    </div>
+</div>
